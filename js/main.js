@@ -8,11 +8,7 @@ class Paddle {
         this.gameArea = document.getElementById("gameArea");  
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
         this.y = 5;
-        this.speed = 15;
-        this.createPaddle(); 
-    }
-
-   createPaddle () {
+        this.speed = 20;
         this.paddleElement = document.createElement("div");       
         this.paddleElement.id = "paddle";
 
@@ -22,7 +18,7 @@ class Paddle {
         this.paddleElement.style.height = `${this.height}px`;
 
         this.gameArea.appendChild(this.paddleElement);
-    } 
+    }
 
     move(direction) {
         this.x += direction * this.speed; 
@@ -181,7 +177,7 @@ document.addEventListener("keydown", (event) => {
         if (!id) {
             id = setInterval(() => {
                 ball.move();
-            }, 12);
+            }, 8);
         }  
     }         
 });
