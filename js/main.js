@@ -1,22 +1,58 @@
 
-let id;
+class Game {
+    constructor() {
+        this.gameArea = document.getElementById("gameArea");
+        this.wall = new Wall(this.gameArea);
+        this.paddle = new Paddle(this.gameArea);
+        this.ball = new Ball(this.wall.brickArray, this.paddle, this.gameArea);
+        this.id = null;
+        this.initializeEventListeners();
+    }
+
+    initializeEventListeners() {
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'ArrowLeft') {
+                this.paddle.move(-1);
+            }
+            if (event.code === 'ArrowRight') {
+                this.paddle.move(1);
+            }
+            if (event.code === 'Space') {
+                if (!this.id) {
+                    this.id = setInterval(() => {
+                        this.ball.move();
+                    }, 8);
+                }
+            }
+        });
+    }
+
+    gameOver() {
+        clearInterval(this.id);
+        console.log("GAME OVER!");
+    }
+
+    win() {
+        clearInterval(this.id);
+        console.log("CONGRATULATIONS, YOU HAVE WON!");
+    }
+}
 
 class Paddle {
-    constructor () {
+    constructor (gameArea) {
         this.width = 85;
         this.height = 12; 
-        this.gameArea = document.getElementById("gameArea");  
+        this.gameArea = gameArea;
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
         this.y = 5;
         this.speed = 20;
+
         this.paddleElement = document.createElement("div");       
         this.paddleElement.id = "paddle";
-
         this.paddleElement.style.left = `${this.x}px`;
         this.paddleElement.style.bottom = `${this.y}px`;
         this.paddleElement.style.width = `${this.width}px`;
         this.paddleElement.style.height = `${this.height}px`;
-
         this.gameArea.appendChild(this.paddleElement);
     }
 
@@ -27,7 +63,7 @@ class Paddle {
             this.x = 0; 
         }    
         if (this.x + this.width > this.gameArea.offsetWidth) {
-            this.x = this.gameArea.offsetWidth - this.width; 
+            this.x = this.gameArea.offsetWidth - this.width - 6;  // Hard-coded to make up for the paddle and game area borders.
         }
         this.paddleElement.style.left = `${this.x}px`;
     }
@@ -52,25 +88,25 @@ class Brick {
 }
 
 class Wall {
-    constructor () {
+    constructor (gameArea) {
         this.brickWidth = 60;
         this.brickHeight = 20;
-        this.gameArea = document.getElementById("gameArea");
+        this.gameArea = gameArea;
+        this.distanceFromTop = 65;
         this.x = 5;
-        this.y = this.gameArea.offsetHeight - 50;
+        this.y = this.gameArea.offsetHeight - this.distanceFromTop;
         this.brickArray = [];
-        this.gameArea = document.getElementById("gameArea");
         this.createBricks();
     }
 
     createBricks () {
         const padding = 5;
         
-        for (let row = 1; row < 2; row++) {
+        for (let row = 1; row < 4; row++) {
             for (let col = 1; col < 10; col++) {
     
             let x = col * (this.brickWidth + padding);
-            let y = this.gameArea.offsetHeight - (row * (this.brickHeight + padding)) - 80;
+            let y = this.gameArea.offsetHeight - (row * (this.brickHeight + padding)) - this.distanceFromTop;
     
             const brick = new Brick(x, y, this.brickWidth, this.brickHeight, this.gameArea);
             this.brickArray.push(brick);
@@ -79,13 +115,13 @@ class Wall {
     }
 }
 
-
 class Ball {
-    constructor (brickArray) {
+    constructor (brickArray, paddle, gameArea) {
         this.width = 14;
         this.height = 14; 
         this.radius = this.width / 2;
-        this.gameArea = document.getElementById("gameArea");  
+        this.gameArea = gameArea;
+        this.paddle = paddle;  
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
         this.y = 20;
         this.dx = 1;  // Direction (45 degrees).
@@ -101,11 +137,6 @@ class Ball {
         gameArea.appendChild(this.ballElement);
     } 
 
-    updatePosition() {
-        this.ballElement.style.left = `${this.x}px`;
-        this.ballElement.style.bottom = `${this.y}px`;
-    }
-
     move() {
         this.x += this.dx;
         this.y += this.dy;  
@@ -120,20 +151,19 @@ class Ball {
     }
 
     checkWallCollision () {
-        if (this.y + this.width > this.gameArea.offsetHeight - this.radius) {  // Outside top.
+        if (this.y + this.width > this.gameArea.offsetHeight - this.radius) {  // Top.
             this.dy = -this.dy;
         }
-        if (this.x < 0 || this.x + this.width > this.gameArea.offsetWidth - this.radius) {  // Outside left or right.
+        if (this.x < 0 || this.x + this.width > this.gameArea.offsetWidth - this.radius) {  // Left or right.
             this.dx = -this.dx; 
         }
-        if (this.y < paddle.y) { // Bottom game over.
-            clearInterval (id);
-            console.log ("GAME OVER!");
+        if (this.y < this.paddle.y) { // Bottom game over.
+            game.gameOver();
         }     
     }
 
     checkPaddleCollision () {
-        if (this.x > paddle.x && this.x < paddle.x + paddle.width && this.y < paddle.y + paddle.height) {
+        if (this.x > this.paddle.x && this.x < this.paddle.x + this.paddle.width && this.y < this.paddle.y + this.paddle.height) {
             this.dy = -this.dy;
             }
     }
@@ -151,8 +181,7 @@ class Ball {
                 this.brickArray.splice(index, 1);
 
                 if (this.brickArray.length === 0) {
-                    clearInterval(id);
-                    console.log("CONGRATULATIONS, YOU HAVE WON!");
+                    game.win();
                 }
             }
         });
@@ -161,30 +190,8 @@ class Ball {
     updatePosition() {
         this.ballElement.style.left = `${this.x}px`;
         this.ballElement.style.bottom = `${this.y}px`;
-    }
-    
+    }  
 }
 
-document.addEventListener("keydown", (event) => {
-
-    if (event.code === 'ArrowLeft') {
-        paddle.move(-1);    
-    } 
-    if (event.code === 'ArrowRight') {
-        paddle.move(1); 
-    }
-    if (event.code === 'Space') {
-        if (!id) {
-            id = setInterval(() => {
-                ball.move();
-            }, 8);
-        }  
-    }         
-});
-
-
-const wall = new Wall();
-const paddle = new Paddle(); 
-const ball = new Ball(wall.brickArray); 
-
+const game = new Game();
 
