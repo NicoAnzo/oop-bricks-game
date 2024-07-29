@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#gameArea {
+    position: relative;
+    width: 700px;
+    height: 500px;
+    background-color: rgb(237, 217, 194);
+    border: 2px solid rgb(179, 156, 129);
+    border-radius: 5px;
+}
+
+#paddle {
+    position: absolute;
+    background-color: grey;
+    border-radius: 5px;
+    border: 1px solid dimgray;
+}
+
+#ball {
+    position: absolute;
+    background-color: cornflowerblue;
+    border-radius: 50%;
+    border: 1px solid rgb(71, 130, 239);
+}
+
+#bricksContainer {
+    position: absolute;
+    background-color: aquamarine;
+}
+
+.bricks {
+    position: absolute;
+    background-color: rgb(219, 108, 68);
+    border-radius: 5px;
+    border: 1px solid rgb(187, 81, 42);
+}
+
