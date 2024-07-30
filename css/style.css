@@ -4,40 +4,82 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #282727;
 }
 
 #gameArea {
     position: relative;
-    width: 700px;
+    width: 714px;
     height: 500px;
-    background-color: rgb(237, 217, 194);
-    border: 2px solid rgb(179, 156, 129);
     border-radius: 5px;
+    background-color: rgba(222, 223, 156, 0.815);;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(101, 94, 94, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#startScreen, #winScreen, #gameOverScreen {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(53, 216, 214, 0.8);
+    color: black;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 #paddle {
     position: absolute;
-    background-color: grey;
+    background-color: #4c5d9f;
     border-radius: 5px;
-    border: 1px solid dimgray;
 }
 
 #ball {
     position: absolute;
-    background-color: cornflowerblue;
+    background-color: rgb(92, 92, 92);
     border-radius: 50%;
-    border: 1px solid rgb(71, 130, 239);
-}
-
-#bricksContainer {
-    position: absolute;
-    background-color: aquamarine;
 }
 
 .bricks {
     position: absolute;
-    background-color: rgb(219, 108, 68);
-    border-radius: 5px;
-    border: 1px solid rgb(187, 81, 42);
+    background-color: rgb(228, 112, 77);
+    border-radius: 4px;
+}
+
+#winScreen p {
+    font-size: 36px;
+    margin: 0;
+    padding: 20px;
+    font-weight: bold;
+}
+
+#gameOverScreen p {
+    font-size: 36px;
+    margin: 0;
+    padding: 20px;
+    font-weight: bold;
 }
 
