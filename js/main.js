@@ -8,6 +8,7 @@ class Game {
         this.playButton = document.getElementById("playButton");
         this.playAgainWinButton = document.getElementById("playAgainWinButton");
         this.playAgainButton = document.getElementById("playAgainButton");
+        this.gameInstructions = document.getElementById("gameInstructions");
 
         this.wall = null;
         this.paddle = null;
@@ -31,10 +32,12 @@ class Game {
         this.winScreen.style.display = "none";
         this.gameOverScreen.style.display = "none";
         this.gameArea.style.display = "flex";
+        this.gameInstructions.style.display = "flex";
         this.resetGame();
 
         document.addEventListener("keydown", (event) => {
             if (event.code === 'Space') {
+                this.gameInstructions.style.display = "none";
                 if (!this.id) {
                     this.id = setInterval(() => {
                         this.ball.move();
@@ -96,7 +99,7 @@ class Paddle {
         this.gameArea = gameArea;
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
         this.y = 5;
-        this.speed = 25;
+        this.speed = 18;
 
         this.paddleElement = document.createElement("div");       
         this.paddleElement.id = "paddle";
@@ -170,7 +173,6 @@ class Ball {
     constructor (brickArray, paddle, gameArea) {
         this.width = 14;
         this.height = 14; 
-        this.radius = this.width / 2;
         this.gameArea = gameArea;
         this.paddle = paddle;  
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
