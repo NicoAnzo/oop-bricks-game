@@ -84,6 +84,7 @@ class Game {
     win() {
         clearInterval(this.id);
         this.id = null;
+        this.gameArea.style.display = "none";
         this.winScreen.style.display = "flex";
     }
 }
@@ -142,7 +143,7 @@ class Wall {
         this.brickWidth = 60;
         this.brickHeight = 20;
         this.gameArea = gameArea;
-        this.distanceFromTop = 70;
+        this.distanceFromTop = 30;
         this.x = 5;
         this.y = this.gameArea.offsetHeight - this.distanceFromTop;
         this.brickArray = [];
@@ -200,43 +201,93 @@ class Ball {
         this.checkBrickCollision();
     }
 
-    checkWallCollision () {
-        if (this.y + this.width > this.gameArea.offsetHeight - this.radius) {  // Top.
+    checkWallCollision() {
+        if (this.y + this.height > this.gameArea.offsetHeight) {  // Top collision
             this.dy = -this.dy;
         }
-        if (this.x < 0 || this.x + this.width > this.gameArea.offsetWidth - this.radius) {  // Left or right.
-            this.dx = -this.dx; 
+        if (this.x < 0) {  // Left collision
+            this.dx = Math.abs(this.dx);  
+        } else if (this.x + this.width > this.gameArea.offsetWidth) {  // Right collision
+            this.dx = -Math.abs(this.dx);  
         }
-        if (this.y < this.paddle.y) { // Bottom game over.
+        if (this.y < 0) { // Bottom game over
             game.gameOver();
-        }     
+        }
     }
 
-    checkPaddleCollision () {
-        if (this.x > this.paddle.x && this.x < this.paddle.x + this.paddle.width && this.y < this.paddle.y + this.paddle.height) {
-            this.dy = -this.dy;
+    checkPaddleCollision() {
+        const nextX = this.x + this.dx;
+        const nextY = this.y + this.dy;
+    
+        if (nextX < this.paddle.x + this.paddle.width &&
+            nextX + this.width > this.paddle.x &&
+            nextY < this.paddle.y + this.paddle.height &&
+            nextY + this.height > this.paddle.y) {
+    
+            const ballBottom = this.y;
+            const ballTop = this.y + this.height;
+            const ballLeft = this.x;
+            const ballRight = this.x + this.width;
+            const paddleTop = this.paddle.y + this.paddle.height;
+            const paddleLeft = this.paddle.x;
+            const paddleRight = this.paddle.x + this.paddle.width;
+    
+            if (ballBottom >= paddleTop - Math.abs(this.dy)) {
+                this.dy = -Math.abs(this.dy);
+            } else if (ballRight <= paddleLeft + Math.abs(this.dx)) {
+                this.dx = -Math.abs(this.dx);
+            } else if (ballLeft >= paddleRight - Math.abs(this.dx)) {
+                this.dx = Math.abs(this.dx);
+            } else {
+                this.dy = -this.dy;
             }
+        }
     }
-
+   
     checkBrickCollision() {
         this.brickArray.forEach((brick, index) => {
             if (
-                this.x + this.width > brick.x &&
                 this.x < brick.x + brick.width &&
-                this.y + this.height > brick.y &&
-                this.y < brick.y + brick.height
+                this.x + this.width > brick.x &&
+                this.y < brick.y + brick.height &&
+                this.y + this.height > brick.y
             ) {
-                this.dy = -this.dy;
+                const ballCenterX = this.x + this.width / 2;  // Determine the center of the ball and the brick
+                const ballCenterY = this.y + this.height / 2;
+                const brickCenterX = brick.x + brick.width / 2;
+                const brickCenterY = brick.y + brick.height / 2;
+    
+                const distX = Math.abs(ballCenterX - brickCenterX);  // Calculate the distance between the centers
+                const distY = Math.abs(ballCenterY - brickCenterY);
+    
+                const overlapX = (this.width / 2 + brick.width / 2) - distX;  // Calculate the overlap on each axis
+                const overlapY = (this.height / 2 + brick.height / 2) - distY;
+    
+                if (overlapX > overlapY) {  // Determine the direction of collision
+                    if (this.y < brickCenterY) {
+                        this.dy = -Math.abs(this.dy); 
+                    } else {
+                        this.dy = Math.abs(this.dy); 
+                    }
+
+                } else {
+                    if (this.x < brickCenterX) {
+                        this.dx = -Math.abs(this.dx); 
+                    } else {
+                        this.dx = Math.abs(this.dx); 
+                    }
+                }
+    
                 document.getElementById('gameArea').removeChild(brick.brickElement);
                 this.brickArray.splice(index, 1);
-
+    
                 if (this.brickArray.length === 0) {
                     game.win();
                 }
             }
         });
     }
-    
+
     updatePosition() {
         this.ballElement.style.left = `${this.x}px`;
         this.ballElement.style.bottom = `${this.y}px`;
