@@ -91,15 +91,10 @@ button {
     padding: 20px;
 }
 
-#winScreen p {
+#winScreen p, #gameOverScreen p {
     font-size: 65px;
     margin: 0;
     padding: 20px;
-}
-
-#gameOverScreen p {
-    font-size: 65px;
-    margin: 0;
-    padding: 20px;
+    text-shadow: 3px 3px #787575;
 }
 

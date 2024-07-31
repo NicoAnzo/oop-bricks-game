@@ -94,13 +94,13 @@ class Game {
 
 class Paddle {
     constructor (gameArea) {
-        this.width = 85;
-        this.height = 12; 
+        this.width = 90;
+        this.height = 14; 
         this.gameArea = gameArea;
         this.x = (this.gameArea.offsetWidth - this.width) /2;  
         this.y = 5;
         this.speed = 18;
-
+        
         this.paddleElement = document.createElement("div");       
         this.paddleElement.id = "paddle";
         this.paddleElement.style.left = `${this.x}px`;
