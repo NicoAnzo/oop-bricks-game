@@ -5,7 +5,10 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #282727;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Orbitron", sans-serif;
+    font-weight: bold;
+    background-image: url("./images/bricks-texture.jpg");
+    background-size: cover;
 }
 
 #gameArea {
@@ -13,36 +16,42 @@ body {
     width: 710px;
     height: 500px;
     border-radius: 5px;
-    background-color: rgba(222, 223, 156, 0.815);
+    background-color: rgba(183, 194, 157, 1);
+    box-shadow: rgb(114, 114, 114) 0px 0px 10px 5px inset;
 }
 
 .overlap {
     position: absolute;
     width: 710px;
     height: 500px;
-    background-color: rgba(222, 223, 156, 0.815);
     display: none;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
     border-radius: 5px;
+    background-color: rgba(183, 194, 157, 1);
+    box-shadow: rgb(114, 114, 114) 0px 0px 10px 5px inset;
 }
 
 #gameInstructions {
     position: absolute;
     display: none;
-    width: 380px;
+    width: 420px;
     height: 80px;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    font-weight: 500;
     align-items: center;
     text-align: center;
     border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 5px;
-    background-color: rgb(200, 197, 197);
+    background-color: rgba(99, 90, 90, 0.189);
+}
+
+#gameInstructions p {
+    margin: 0;
 }
 
 button {
@@ -50,29 +59,34 @@ button {
     font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-}
+    font-family: "Orbitron", sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px -3px inset, rgba(0, 0, 0, 0.3) 0px 4px 6px -4px;}
 
 #paddle {
     position: absolute;
-    background-color: #4c5d9f;
+    background-color: #1240fa;
     border-radius: 5px;
+    box-shadow: rgb(57, 57, 57) -5px -5px 10px 0px inset;
 }
 
 #ball {
     position: absolute;
-    background-color: rgb(92, 92, 92);
+    background-color: rgb(143, 140, 140);
     border-radius: 50%;
+    box-shadow: rgb(57, 57, 57) -5px -5px 10px 0px inset;
 }
 
 .bricks {
     position: absolute;
-    background-color: rgb(228, 112, 77);
+    background-color: rgb(207, 107, 41);
     border-radius: 4px;
+    box-shadow: rgb(57, 57, 57) -5px -5px 10px 0px inset;
 }
 
 #startScreen p {
-    font-size: 50px;
+    font-family: "Honk", system-ui;    
+    font-weight: 500;
+    font-size: 90px;
     margin: 0;
     padding: 20px;
 }
