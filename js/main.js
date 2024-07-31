@@ -146,7 +146,7 @@ class Wall {
         this.brickWidth = 60;
         this.brickHeight = 20;
         this.gameArea = gameArea;
-        this.distanceFromTop = 30;
+        this.distanceFromTop = 50;
         this.x = 5;
         this.y = this.gameArea.offsetHeight - this.distanceFromTop;
         this.brickArray = [];
@@ -158,7 +158,7 @@ class Wall {
         
         for (let row = 1; row < 4; row++) {
             for (let col = 1; col < 10; col++) {
-    
+            
             let x = col * (this.brickWidth + padding);
             let y = this.gameArea.offsetHeight - (row * (this.brickHeight + padding)) - this.distanceFromTop;
     

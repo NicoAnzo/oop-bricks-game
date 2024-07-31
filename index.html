@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OOP Bricks Game</title>
-
+    <link type="image/png" sizes="32x32" rel="icon" href="./icons8-gameboy-32.png">
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
@@ -15,21 +15,22 @@
     <div id="gameArea"></div>
 
     <div class="overlap" id="startScreen">
+        <p>BRICKS GAME</p>
         <button id="playButton">PLAY</button>
     </div>
 
-    <div id="gameInstructions">
-        <p>USE <== AND ==> TO MOVE THE PADDLE.</p>
-        <p>PRESS THE SPACE BAR TO START THE GAME.</p>
+    <div class="overlap" id="gameInstructions">
+        <p>USE LEFT AND RIGHT ARROW KEYS TO MOVE THE PADDLE</p>
+        <p>PRESS THE SPACE BAR TO START THE GAME</p>
     </div>
 
     <div class="overlap" id="winScreen">
-        <p>YOU WIN!</p>
+        <p>YOU WIN! <span>&#x1F929;</span></p>
         <button id="playAgainWinButton">PLAY AGAIN</button>
     </div>
 
     <div class="overlap" id="gameOverScreen">
-        <p>GAME OVER</p>
+        <p>GAME OVER <span>&#x1F641;</span></p>
         <button id="playAgainButton">PLAY AGAIN</button>
     </div>
 

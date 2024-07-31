@@ -5,11 +5,12 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #282727;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #gameArea {
     position: relative;
-    width: 712px;
+    width: 710px;
     height: 500px;
     border-radius: 5px;
     background-color: rgba(222, 223, 156, 0.815);
@@ -17,12 +18,12 @@ body {
 
 .overlap {
     position: absolute;
-    width: 712px;
+    width: 710px;
     height: 500px;
     background-color: rgba(222, 223, 156, 0.815);
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     border-radius: 5px;
@@ -31,15 +32,15 @@ body {
 #gameInstructions {
     position: absolute;
     display: none;
-    width: 400px;
-    height: 100px;
+    width: 380px;
+    height: 80px;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     border-radius: 5px;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 12px;
     border-radius: 5px;
     background-color: rgb(200, 197, 197);
 }
@@ -70,17 +71,21 @@ button {
     border-radius: 4px;
 }
 
-#winScreen p {
-    font-size: 36px;
+#startScreen p {
+    font-size: 50px;
     margin: 0;
     padding: 20px;
-    font-weight: bold;
+}
+
+#winScreen p {
+    font-size: 50px;
+    margin: 0;
+    padding: 20px;
 }
 
 #gameOverScreen p {
-    font-size: 36px;
+    font-size: 50px;
     margin: 0;
     padding: 20px;
-    font-weight: bold;
 }
 
